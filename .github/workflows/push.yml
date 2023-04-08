@@ -27,16 +27,22 @@ jobs:
         path: ~/go/bin/
         key: ${{ runner.os }}-go-bin
 
+    - id: go
+      run: |
+        echo "GOPATH=$(go env GOPATH)" >> "$GITHUB_OUTPUT"
+
     # - run: git fetch origin main
 
     - name: Setup blogsync
-      run: go get github.com/x-motemen/blogsync
+      run: go install github.com/x-motemen/blogsync@latest
+
+    - run: echo ${{ steps.go.outputs.GOPATH}}
 
     - name: push
+      env:
+        PATH: ${{ steps.go.outputs.GOPATH }}:$PATH
       run: |
-        git diff origin/main --name-only \
-          | grep entries/${{ env.BLOGSYNC_DOMAIN }}/entry \
-          | xargs -t -n1 ~/go/bin/blogsync push
+        git diff origin/main --name-only -- entry | xargs -t -n1 blogsync push
 
     # - name: notify to slack
     #   uses: mm0202/action_slack-notify@main
