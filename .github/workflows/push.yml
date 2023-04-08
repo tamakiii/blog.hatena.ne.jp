@@ -30,7 +30,10 @@ jobs:
         run: echo $(go env GOPATH)/bin >> $GITHUB_PATH
       - name: Install blogsync
         run: go install github.com/x-motemen/blogsync@latest
+      - run: |
+          echo "List all the files that have changed: ${{ steps.changes.outputs.all_changed_files }}"
       - name: blogsync push
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
         run:  |
           for file in ${{ steps.changes.outputs.all_changed_files }}; do
             blogsync push $file
