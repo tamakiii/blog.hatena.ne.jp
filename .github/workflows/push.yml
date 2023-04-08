@@ -1,0 +1,47 @@
+name: Push
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+env:
+  TZ: "Asia/Tokyo"
+  BLOGSYNC_USERNAME: ${{ vars.BLOGSYNC_USERNAME }}
+  BLOGSYNC_PASSWORD: ${{ secrets.BLOGSYNC_PASSWORD }}
+  BLOGSYNC_DOMAIN: ${{ vars.BLOGSYNC_DOMAIN }}
+
+jobs:
+  push:
+    name: push
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: tj-actions/changed-files@v35
+        id: changes
+        with:
+          files: entry/**
+      - uses: actions/setup-go@v1
+        with:
+          go-version: 1.20
+      - name: Add GOBIN to PATH
+        run: echo $(go env GOPATH)/bin >> $GITHUB_PATH
+      - name: Install blogsync
+        run: go install github.com/x-motemen/blogsync@latest
+      - run: |
+          echo "List all the files that have changed: ${{ steps.changes.outputs.all_changed_files }}"
+      - name: blogsync push
+        if: steps.changes.outputs.any_changed == 'true'
+        run:  |
+          for file in ${{ steps.changes.outputs.all_changed_files }}; do
+            blogsync push $file
+          done
+
+      # - name: notify to slack
+      #   uses: mm0202/action_slack-notify@main
+      #   if: always()
+      #   env:
+      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

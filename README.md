@@ -7,5 +7,6 @@ make pull
 make draft TITLE="Hello, blogsync"
 yo
 ^D
-# => https://blog.hatena.ne.jp/tamakiii/tamakiii.hatenablog.com/drafts
 ```
+
+- https://blog.hatena.ne.jp/tamakiii/tamakiii.hatenablog.com/drafts
