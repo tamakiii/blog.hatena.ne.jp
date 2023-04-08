@@ -6,6 +6,7 @@ on:
       - main
 
 env:
+  TZ: "Asia/Tokyo"
   BLOGSYNC_DOMAIN: ${{ secrets.BLGOSYNC_DOMAIN }}
 
 jobs:
