@@ -27,16 +27,17 @@ jobs:
         path: ~/go/bin/
         key: ${{ runner.os }}-go-bin
 
-    - id: go
-      run: |
-        echo "GOPATH=$(go env GOPATH)" >> "$GITHUB_OUTPUT"
+    # - id: go
+    #   run: |
+    #     echo "GOPATH=$(go env GOPATH)" >> "$GITHUB_OUTPUT"
 
     # - run: git fetch origin main
 
     - name: Setup blogsync
       run: go install github.com/x-motemen/blogsync@latest
 
-    - run: echo ${{ steps.go.outputs.GOPATH}}
+    # - run: echo ${{ steps.go.outputs.GOPATH}}
+    - run: go env GOPATH >> $GITHUB_PATH
 
     - name: push
       env:
