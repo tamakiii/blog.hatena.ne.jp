@@ -7,9 +7,9 @@ on:
 
 env:
   TZ: "Asia/Tokyo"
-  BLOGSYNC_USERNAME: ${{ vars.BLGOSYNC_USERNAME }}
+  BLOGSYNC_USERNAME: ${{ vars.BLOGSYNC_USERNAME }}
   BLOGSYNC_PASSWORD: ${{ secrets.BLOGSYNC_PASSWORD }}
-  BLOGSYNC_DOMAIN: ${{ vars.BLGOSYNC_DOMAIN }}
+  BLOGSYNC_DOMAIN: ${{ vars.BLOGSYNC_DOMAIN }}
 
 jobs:
   push:
