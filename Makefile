@@ -1,11 +1,13 @@
 .PHONY: help setup teardown
-.PHONY: pull
+.PHONY: pull draft
 
 env = $(shell test -f .env && export $$(cat .env | xargs) && echo $$$1)
 
 export BLOGSYNC_USERNAME ?= $(call env,BLOGSYNC_USERNAME)
 export BLOGSYNC_PASSWORD ?= $(call env,BLOGSYNC_PASSWORD)
 export BLOGSYNC_DOMAIN ?= $(call env,BLOGSYNC_DOMAIN)
+
+TITLE :=
 
 help:
 	@cat $(firstword $(MAKEFILE_LIST))
@@ -15,6 +17,9 @@ setup: \
 
 pull: \
 	entry
+
+draft:
+	blogsync post --draft --title="$(TITLE)" $(BLOGSYNC_DOMAIN)
 
 entry:
 	blogsync pull $(BLOGSYNC_DOMAIN)
