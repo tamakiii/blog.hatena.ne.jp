@@ -33,7 +33,7 @@ jobs:
       - run: |
           echo "List all the files that have changed: ${{ steps.changes.outputs.all_changed_files }}"
       - name: blogsync push
-        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        if: steps.changes.outputs.any_changed == 'true'
         run:  |
           for file in ${{ steps.changes.outputs.all_changed_files }}; do
             blogsync push $file
