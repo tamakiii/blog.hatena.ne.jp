@@ -4,7 +4,7 @@
 env = $(shell test -f .env && export $$(cat .env | xargs) && echo $$$1)
 
 export BLOGSYNC_USERNAME ?= $(call env,BLOGSYNC_USERNAME)
-export BLOGSYNC_PASSWORD ?= $(call env,BLOGSYNC_UPASSWORD)
+export BLOGSYNC_PASSWORD ?= $(call env,BLOGSYNC_PASSWORD)
 export BLOGSYNC_DOMAIN ?= $(call env,BLOGSYNC_DOMAIN)
 
 help:
