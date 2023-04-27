@@ -1,4 +1,4 @@
-# tamakiii.hatenablog.com
+# tamakiii/blog.hatena.ne.jp
 
 ## How to use
 ```sh
