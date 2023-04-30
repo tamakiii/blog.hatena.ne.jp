@@ -2,7 +2,13 @@
 
 ## How to use
 ```sh
-make setup # BLOGSYNC_USERNAME= BLOGSYNC_PASSWORD= BLOGSYNC_DOMAIN=
+# setup
+export BLOGSYNC_USERNAME=$(read -s && echo $REPLY)
+export BLOGSYNC_PASSWORD=$(read -s && echo $REPLY)
+make setup # option: IMAGE= TAG=
+less .env
+
+# pull, draft
 make pull
 make draft TITLE="Hello, blogsync"
 yo
