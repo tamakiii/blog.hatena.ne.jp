@@ -15,6 +15,8 @@ setup: \
 
 .env:
 	touch $@
+	@echo USERNAME=$(USERNAME) >> $@
+	@echo REPOSITORY=$(REPOSITORY) >> $@
 	@echo IMAGE=$(IMAGE) >> $@
 	@echo TAG=$(TAG) >> $@
 	@echo BLOGSYNC_USERNAME=$(BLOGSYNC_USERNAME) >> $@
