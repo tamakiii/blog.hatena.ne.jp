@@ -1,5 +1,11 @@
 tamakiii.hatenablog.com:
   username: tamakiii
   owner: tamakiii
+tamakiii.hatenadiary.com:
+  username: tamakiii
+  owner: tamakiii
+tamakiii.hatenadiary.org:
+  username: tamakiii
+  owner: tamakiii
 default:
   local_root: entry
