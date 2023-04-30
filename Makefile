@@ -1,5 +1,5 @@
 .PHONY: help setup teardown
-.PHONY: pull draft
+.PHONY: pull draft entry
 
 env = $(shell test -f .env && export $$(cat .env | xargs) && echo $$$1)
 
