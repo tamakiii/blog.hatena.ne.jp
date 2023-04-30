@@ -1,7 +1,6 @@
-.PHONY: help setup teardown
-.PHONY: pull draft
+.PHONY: help setup teardown pull draft entry
 
-env = $(shell test -f .env && export $$(cat .env | xargs) && echo $$$1)
+include function.mk
 
 export BLOGSYNC_USERNAME ?= $(call env,BLOGSYNC_USERNAME)
 export BLOGSYNC_PASSWORD ?= $(call env,BLOGSYNC_PASSWORD)
@@ -12,23 +11,18 @@ TITLE :=
 help:
 	@cat $(firstword $(MAKEFILE_LIST))
 
-setup: \
-	.env
+setup:
+	$(MAKE) -f env.mk $@
 
 pull: \
 	entry
 
 draft:
+	test -z "$(TITLE)" && { echo 'TITLE required'; exit 1; } || true
 	blogsync post --draft --title="$(TITLE)" $(BLOGSYNC_DOMAIN)
 
 entry:
 	blogsync pull $(BLOGSYNC_DOMAIN)
 
 teardown:
-	rm -rf .env
-
-.env:
-	touch $@
-	@echo BLOGSYNC_USERNAME=$(BLOGSYNC_USERNAME) >> $@
-	@echo BLOGSYNC_PASSWORD=$(BLOGSYNC_PASSWORD) >> $@
-	@echo BLOGSYNC_DOMAIN=$(BLOGSYNC_DOMAIN) >> $@
+	$(MAKE) -f env.mk $@
